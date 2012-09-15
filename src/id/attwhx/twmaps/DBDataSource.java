@@ -12,16 +12,20 @@ import android.util.Log;
 
 public class DBDataSource {
 
-  // Database fields
+  // Inisialisasi database fields
   private SQLiteDatabase database;
   private DBMapsHelper dbHelper;
+  
+  // Ambil konstanta
   private String[] allColumns = { DBMapsHelper.COLUMN_ID,
       DBMapsHelper.COLUMN_LAT, DBMapsHelper.COLUMN_LONG };
-
+  
+  // Menggunakan DBMapsHelper yang diiinisialisasi pada konstruktor 
   public DBDataSource(Context context) {
     dbHelper = new DBMapsHelper(context);
   }
 
+  // Mengambil sebuah database yang bisa digunakan
   public void open() throws SQLException {
     database = dbHelper.getWritableDatabase();
   }
@@ -30,6 +34,7 @@ public class DBDataSource {
     dbHelper.close();
   }
 
+  // Method yang berfungsi untuk membuat lokasi baru dan memasukkannya ke dalam database
   public DBLokasi createLokasi(Double dlat, Double dlng) {
     ContentValues values = new ContentValues();
     String lat = Double.toString(dlat);
@@ -48,14 +53,16 @@ public class DBDataSource {
     Log.v("info", "The lng "+lng+", "+dlng);
     return newLokasi;
   }
-
-  public void deleteLokasi(DBLokasi lokasi) {
+  
+  // Method yang berfungsi untuk menghapus lokasi berdasarkan ID
+  public void deleteLokasi(DBLokasi lokasi, long ids) {
     long id = lokasi.getId();
-    System.out.println("Comment deleted with id: " + id);
+    System.out.println("Lokasi deleted with id: " + id);
     database.delete(DBMapsHelper.TABLE_NAME, DBMapsHelper.COLUMN_ID
         + " = " + id, null);
   }
 
+  // Method yang berfungsi untuk mengambil semua lokasi
   public List<DBLokasi> getAllLokasi() {
     List<DBLokasi> daftarLokasi = new ArrayList<DBLokasi>();
 
@@ -73,6 +80,7 @@ public class DBDataSource {
     return daftarLokasi;
   }
 
+  // Method yang berfungsi untuk membuat sebuah objek lokasi baru yang nantinya akan dimasukkan ke dalam database
   private DBLokasi cursorToLokasi(Cursor cursor) {
 	  
 	  DBLokasi lokasi = new DBLokasi();

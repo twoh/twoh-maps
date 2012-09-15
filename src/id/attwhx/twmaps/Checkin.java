@@ -35,15 +35,22 @@ public class Checkin extends ListActivity implements OnClickListener{
       lng = b.getDouble("longitude");
       textView.setText("Ingin check-in di koordinat berikut ? "+lat+","+lng);
       
+      // Instanstiasi kelas DataSource yang berfungsi sebagai controller atau DAO
+      
       datasource = new DBDataSource(this);
       datasource.open();
       
+      // Ambil semua lokasi
+      
       List<DBLokasi> values = datasource.getAllLokasi();
       
+      // Tampilkan pada ListView
       ArrayAdapter<DBLokasi> adapter = new ArrayAdapter<DBLokasi>(this,
     	        android.R.layout.simple_list_item_1, values);
       setListAdapter(adapter);
 	}
+	
+	// Masukkan lokasi baru ketika tombol check in di-klik
 	
 	public void onClick(View v) {
 		@SuppressWarnings("unchecked")

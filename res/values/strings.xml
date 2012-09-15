@@ -9,4 +9,10 @@
 -->
 <resources>
     <string name="app_name">TWOH Maps</string>
+    <string name="about_text">TWOH Maps <br/>
+        Copyright by : Hafizh Herdi Naufal <br/> ||
+        Access Network Laboratory <br/> ||
+        This is an Open Source Application and not for commercial use. <br/>||
+        View detailed documentation on http://twoh.web.id
+        </string>
 </resources>

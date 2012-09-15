@@ -44,6 +44,7 @@ public class MapDriverActivity extends Activity implements OnClickListener {
         viewOnMapBut = findViewById(R.id.viewOnMapButton);
         checkInBut = findViewById(R.id.checkInButton);
         aboutBut = findViewById(R.id.aboutButton);
+        aboutBut.setOnClickListener(this);
         getLocationBut.setOnClickListener(this);
         viewOnMapBut.setOnClickListener(this);
         checkInBut.setOnClickListener(this);
@@ -147,6 +148,9 @@ public class MapDriverActivity extends Activity implements OnClickListener {
 				switchToMap();
 				break;
 			case R.id.checkInButton : switchToCheckIn();
+										break;
+			case R.id.aboutButton : Intent i = new Intent(this, About.class);
+			startActivity(i);
 		}
 	}
 
