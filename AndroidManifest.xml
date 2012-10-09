@@ -10,6 +10,7 @@
          android:name="android.permission.ACCESS_FINE_LOCATION" />
    <uses-permission
          android:name="android.permission.INTERNET" />
+   <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8" />
    <application android:icon="@drawable/icon"
          android:label="@string/app_name">
       <activity android:name=".TWMaps"
@@ -31,5 +32,5 @@
       </activity>
       <uses-library android:name="com.google.android.maps" />
    </application>
-   <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8" />
+   
 </manifest> 

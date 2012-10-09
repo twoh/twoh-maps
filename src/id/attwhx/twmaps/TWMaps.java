@@ -2,6 +2,7 @@
 package id.attwhx.twmaps;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,23 +42,51 @@ public class TWMaps extends MapActivity {
    private void initMyLocation() {
 	  int lat, lng;
 	  Bundle b = this.getIntent().getExtras();
-      lat = (int)(b.getDouble("latitude")*1E6);
-      lng = (int)(b.getDouble("longitude")*1E6);
-      Log.v("info", "The lat "+lat);
-      Log.v("info", "The lng "+lng);
-      
-      GeoPoint point = new GeoPoint(lat,lng); 
+	  if(b.containsKey("longitude"))
+	  {
+		  
+	      lat = (int)(b.getDouble("latitude")*1E6);
+	      lng = (int)(b.getDouble("longitude")*1E6);
+	      Log.v("info", "The lat "+lat);
+	      Log.v("infoMAPS", "MASUK KE SATU");
+	      Log.v("info", "The lng "+lng);
+	      GeoPoint point = new GeoPoint(lat,lng);
+	      List<Overlay> mapOverlays = map.getOverlays();
+		  Drawable marker = this.getResources().getDrawable(R.drawable.marker);
+		  MapOverlay itemizedOverlay = new MapOverlay(marker, this);   
+	      
+		  OverlayItem overlayitem = new OverlayItem(point, "Info Lokasi", "Koordinat ("+b.getDouble("latitude")+","+b.getDouble("longitude")+")");
+	      itemizedOverlay.addOverlay(overlayitem);
+	      controller.setZoom(16);
+	      controller.animateTo(point);
+	      mapOverlays.add(itemizedOverlay);
+	      
+	  }else
+	  {
+		  Log.v("infoMAPS", "MASUK KE DUA");
+		  List<Overlay> mapOverlays = map.getOverlays();
+		  Drawable marker = this.getResources().getDrawable(R.drawable.marker);
+		  MapOverlay itemizedOverlay = new MapOverlay(marker, this);
+		  ArrayList<DBLokasi> daftarLokasi = b.getParcelableArrayList("daftar");
+		  for(int i=0;i<daftarLokasi.size();i++)
+		  {
+			  Log.v("infoMAPS", "Marker ke "+i);
+			  DBLokasi a = daftarLokasi.get(i);
+			  lat = (int)(Double.valueOf(a.getLat())*1E6);
+		      lng = (int)(Double.valueOf(a.getLng())*1E6);
+		      GeoPoint point = new GeoPoint(lat,lng);
+		      OverlayItem overlayitem = new OverlayItem(point, "Info Lokasi", "Koordinat ke "+i+" ("+a.getLat()+","+a.getLng()+")");
+		      itemizedOverlay.addOverlay(overlayitem);
+		      controller.setZoom(16);
+		      controller.animateTo(point);
+		      mapOverlays.add(itemizedOverlay);
+		  }
+	  }
+       
 	  
-      List<Overlay> mapOverlays = map.getOverlays();
-	  Drawable marker = this.getResources().getDrawable(R.drawable.marker);
-	  MapOverlay itemizedOverlay = new MapOverlay(marker, this);   
       
-	  OverlayItem overlayitem = new OverlayItem(point, "Lokasi saat ini", "Koordinat ("+b.getDouble("latitude")+","+b.getDouble("longitude")+")");
-      itemizedOverlay.addOverlay(overlayitem);
-      controller.setZoom(16);
-      controller.animateTo(point);
          
-      mapOverlays.add(itemizedOverlay);
+      
    }
 
    @Override

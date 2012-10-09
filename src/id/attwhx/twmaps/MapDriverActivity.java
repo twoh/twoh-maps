@@ -25,8 +25,8 @@ import android.widget.Toast;
 
 
 public class MapDriverActivity extends Activity implements OnClickListener {
-	private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // dalam Meters
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // dalam Milliseconds
+	private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 10; // dalam Meters
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 60000; // dalam Milliseconds
     //Instanstiasi Location Manager
     protected LocationManager locationManager;
     //Tombol-tombol pada menu utama
@@ -67,6 +67,7 @@ public class MapDriverActivity extends Activity implements OnClickListener {
             Toast.makeText(MapDriverActivity.this, message,
                     Toast.LENGTH_LONG).show();
             }
+        
     }   
 
     private class MyLocationListener implements LocationListener {

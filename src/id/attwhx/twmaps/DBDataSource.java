@@ -63,8 +63,8 @@ public class DBDataSource {
   }
 
   // Method yang berfungsi untuk mengambil semua lokasi
-  public List<DBLokasi> getAllLokasi() {
-    List<DBLokasi> daftarLokasi = new ArrayList<DBLokasi>();
+  public ArrayList<DBLokasi> getAllLokasi() {
+    ArrayList<DBLokasi> daftarLokasi = new ArrayList<DBLokasi>();
 
     Cursor cursor = database.query(DBMapsHelper.TABLE_NAME,
         allColumns, null, null, null, null, null);
@@ -80,6 +80,17 @@ public class DBDataSource {
     return daftarLokasi;
   }
 
+  public DBLokasi getLokasi(int id)
+  {
+	  DBLokasi lokasi = new DBLokasi();
+	  
+	  Cursor cursor = database.query(DBMapsHelper.TABLE_NAME, allColumns, "_id ="+id, null, null, null, null);
+	  cursor.moveToFirst();
+	  lokasi = cursorToLokasi(cursor);
+	  cursor.close();
+	  return lokasi;
+  }
+  
   // Method yang berfungsi untuk membuat sebuah objek lokasi baru yang nantinya akan dimasukkan ke dalam database
   private DBLokasi cursorToLokasi(Cursor cursor) {
 	  
